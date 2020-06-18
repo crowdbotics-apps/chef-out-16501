@@ -6,8 +6,11 @@ import { combineReducers } from "redux";
 
 
 //@BlueprintReduxImportInsertion
-import CalendarReducer from '../features/Calendar/redux/reducers';
 import EmailAuthReducer from '../features/EmailAuth/redux/reducers';
+import CountryReducer from '../features/Country/redux/reducers';
+import MenuCategoryReducer from '../features/MenuCategory/redux/reducers';
+import SpecificOrderReducer from '../features/SpecificOrder/redux/reducers';
+import CheckOutReducer from '../features/CheckOut/redux/reducers';
 
 export const combinedReducers = combineReducers({
   blank: (state, action) => {
@@ -17,7 +20,10 @@ export const combinedReducers = combineReducers({
 
 
   //@BlueprintReduxCombineInsertion
-Calendar: CalendarReducer,
-EmailAuth: EmailAuthReducer,
+  EmailAuth: EmailAuthReducer,
+  Country: CountryReducer,
+  MenuCategory: MenuCategoryReducer,
+  SpecificOrder: SpecificOrderReducer,
+  CheckOut:CheckOutReducer
 
 });

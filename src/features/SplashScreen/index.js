@@ -7,8 +7,10 @@ import LogoIcon from "../../assets/images/backgroundLoginV1.png";
 import { installed_blueprints } from "../../config/installed_blueprints";
 import { store } from "../../redux/store";
 import { styles } from './styles'
+import logo from "../../assets/icons/logo_vertical_white_text.png"
+import {connect} from 'react-redux';
 
-export default class App extends Component {
+class App extends Component {
 
   static navigationOptions = {
     title: 'Installed blueprints',
@@ -17,6 +19,11 @@ export default class App extends Component {
 
   componentDidMount() {
     store.dispatch({type: 'TEST/ALO'});
+    
+    const {
+      navigation: {navigate},
+    } = this.props;
+    setTimeout(()=>{navigate("WelcomeScreen")},3330)
   }
 
   renderItems() {
@@ -47,8 +54,24 @@ export default class App extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.itemsContainer}>
-        {this.renderItems()}
+        <Image style={{width:331,height:115,marginTop:272}} source={logo} />
       </ScrollView>
     );
   }
 }
+
+const mapStateToProps = state => ({categories: state.MenuCategory.categories});
+
+const mapDispatchToProps = dispatch => ({
+    actions: {
+        loadCategory: () => {
+            dispatch(reduxActions.loadCategory());
+        },
+        
+        navigateToItem: ({item}) => {
+          dispatch(reduxActions.navigateToMenuItems({item}));
+      }
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
