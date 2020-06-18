@@ -28,7 +28,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
-ALLOWED_HOSTS = env.list("HOST", default=["*"])
+#ALLOWED_HOSTS = env.list("HOST", default=["*"])
+ALLOWED_HOSTS = env.list("", default=["*"])
 SITE_ID = 1
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -45,10 +46,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "delivery_user_profile",
+    "menu",
     "delivery_order",
     "driver",
-    "menu",
-    "delivery_user_profile",
 ]
 LOCAL_APPS = [
     "home",
@@ -113,6 +114,11 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   )
+}
 if env.str("DATABASE_URL", default=None):
     DATABASES = {"default": env.db()}
 
@@ -143,6 +149,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
 STATIC_URL = "/static/"
 
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
@@ -151,6 +158,20 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_BUCKET_NAME", "master-of-taste")
+#AWS_STORAGE_BUCKET_NAME = "deliveryappblueprin-14546"
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# s3 static settings
+AWS_LOCATION = 'media'
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
@@ -191,9 +212,8 @@ EMAIL_USE_TLS = True
 
 
 # start fcm_django push notifications
-FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": env.str("FCM_SERVER_KEY", "")}
+FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": env.str("FCM_SERVER_KEY", "AAAAv-pk3KQ:APA91bFJXqoV3BA4Ue-1lerjn-PCv_IGGoo_UYLovdXwIxM-0Oftl90e19cK9-gXdT8wRoKLbZXF7IFjVeAvNWWfSwoW3_tluO92PFixxPMzVTeHrpn1u-2HSdqOx3yXdCci5aSEua5d")}
 # end fcm_django push notifications
-
 
 if DEBUG:
     # output email to console instead of sending
