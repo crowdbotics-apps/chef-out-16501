@@ -11,6 +11,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+@import Firebase;
 
 @implementation AppDelegate
 
@@ -29,7 +31,19 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [FIRApp configure];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+    return YES;
+  }
+
+  return NO;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
