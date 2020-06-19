@@ -1,17 +1,5 @@
 from rest_framework import serializers
-from menu.models import ItemVariant, Country, Item, Category, Review
-
-
-class ReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = "__all__"
-
-
-class ItemVariantSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ItemVariant
-        fields = "__all__"
+from menu.models import Category, Country, Item, ItemVariant, Review
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -29,4 +17,16 @@ class ItemSerializer(serializers.ModelSerializer):
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
+        fields = "__all__"
+
+
+class ItemVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemVariant
+        fields =  ('__all__')
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
         fields = "__all__"

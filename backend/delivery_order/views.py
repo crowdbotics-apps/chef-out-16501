@@ -1,4 +1,4 @@
-from .models import Order, PaymentMethod, Bill
+from .models import Bill, Order, PaymentMethod
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 from django.shortcuts import render
 

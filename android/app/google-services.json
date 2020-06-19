@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:900242611780:android:c118cb0b118b0fd8",
         "android_client_info": {
-          "package_name": "com.status.company"
+          "package_name": "com.chef_out_16501"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "900242611780-4rid5s96gr5680erc42013i0tj3f3lb2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.fun.fun"
+                "bundle_id": "com.chef_out_16501"
               }
             }
           ]

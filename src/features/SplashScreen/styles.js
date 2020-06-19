@@ -10,9 +10,10 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
-        marginTop: 30,
+        backgroundColor:"#EC5E53",
+        flex: 1
     },
     item: {
         alignItems: 'center',

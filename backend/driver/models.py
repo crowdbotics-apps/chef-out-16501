@@ -7,7 +7,7 @@ class DriverProfile(models.Model):
     user = models.OneToOneField(
         "users.User", on_delete=models.CASCADE, related_name="driverprofile_user",
     )
-    photo = models.URLField()
+    photo =  models.ImageField(upload_to ='uploads/driver/') 
     timestamp_created = models.DateTimeField(auto_now_add=True,)
     last_updated = models.DateTimeField(auto_now=True,)
     details = models.TextField(null=True, blank=True,)
@@ -15,17 +15,17 @@ class DriverProfile(models.Model):
 
 class DriverOrder(models.Model):
     "Generated Model"
-    order = models.OneToOneField(
-        "delivery_order.Order",
+    bill = models.OneToOneField(
+        "delivery_order.Bill",
         on_delete=models.CASCADE,
-        related_name="driverorder_order",
+        related_name="driverorder_bill",
     )
     timestamp_created = models.DateTimeField(auto_now_add=True,)
     driver = models.ForeignKey(
         "driver.DriverProfile",
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
         related_name="driverorder_driver",
     )
 

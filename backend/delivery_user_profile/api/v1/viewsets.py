@@ -4,15 +4,6 @@ from .serializers import ContactInfoSerializer, ProfileSerializer
 from rest_framework import viewsets
 
 
-class ContactInfoViewSet(viewsets.ModelViewSet):
-    serializer_class = ContactInfoSerializer
-    authentication_classes = (
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    )
-    queryset = ContactInfo.objects.all()
-
-
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     authentication_classes = (
@@ -20,3 +11,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
         authentication.TokenAuthentication,
     )
     queryset = Profile.objects.all()
+
+
+class ContactInfoViewSet(viewsets.ModelViewSet):
+    serializer_class = ContactInfoSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = ContactInfo.objects.all()

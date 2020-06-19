@@ -59,6 +59,50 @@ class SignupSerializer(serializers.ModelSerializer):
         """rest_auth passes request so we must override to accept it"""
         return super().save()
 
+class SocialTokenSerializer(serializers.Serializer):
+    provider = serializers.CharField(label=_("provider"))
+    access_token = serializers.CharField(
+        label=_("access_token"),
+    )
+    
+    email = serializers.CharField(
+        label=_("email"),
+    )
+
+    name = serializers.CharField(
+        label=_("name"),
+    )
+
+    def validate(self, attrs):
+        provider = attrs.get('provider')
+        access_token = attrs.get('access_token')
+        email = attrs.get('email')
+        name = attrs.get('name')
+
+        if provider and access_token and email and name:
+          try:
+            ## TODO AUTHENTICATE TOKEN
+            user = User.objects.get(email=email)
+            # The authenticate call simply returns None for is_active=False
+            # users. (Assuming the default ModelBackend authentication
+            # backend.)
+          except:
+              user = User(
+                email=email,
+                username=generate_unique_username(
+                  [name, email, "user"]
+                ),
+                name=name
+              )
+              user.save()
+              user = User.objects.get(email=email)
+        else:
+            msg = _('Must include "provider" and "access_token" and "email" and "name".')
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
 
 class CustomTextSerializer(serializers.ModelSerializer):
     class Meta:
