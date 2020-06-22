@@ -113,11 +113,7 @@ function * handleSignUp(action) {
 
         console.log(status, data);
         if (status === 201) {
-            yield put({type: EMAIL_AUTH_SIGNUP_SUCCESS, user: data.user});
-
-            // you can change the navigate for navigateAndResetStack to go to a protected
-            // route
-            NavigationService.navigate('SignIn');
+            yield put({type: EMAIL_AUTH_SIGNUP_SUCCESS, user: data});
         } else {
             yield put({type: EMAIL_AUTH_SIGNUP_ERROR, error: 'Unknown Error'});
         }

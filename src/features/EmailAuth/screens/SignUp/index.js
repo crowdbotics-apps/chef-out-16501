@@ -83,6 +83,12 @@ class SignUp extends Component {
         if(nextProps.accessToken){
           this.props.navigation.navigate("Country")
         }
+        
+        console.log('SignUp UNSAFE_componentWillReceiveProps:',nextProps.user);
+        if(nextProps.user){
+          Toast.show("Sign Up Completed Sucessfully..", Toast.LONG);
+          this.props.navigation.navigate("SignIn")
+        }
     }
 
     handleEmailChange(email) {
@@ -143,8 +149,6 @@ class SignUp extends Component {
             return;
         }
         signUp({email, password});
-
-        this.setState({email: '', password: '', confirm_password: ''});
     }
 
     loginFacebook() {
@@ -255,7 +259,7 @@ class SignUp extends Component {
     }
 }
 
-const mapStateToProps = state => ({signUpErrors: state.EmailAuth.errors.SignUp,accessToken: state.EmailAuth.accessToken});
+const mapStateToProps = state => ({user:state.EmailAuth.user,signUpErrors: state.EmailAuth.errors.SignUp,accessToken: state.EmailAuth.accessToken});
 
 const mapDispatchToProps = dispatch => ({
     actions: {

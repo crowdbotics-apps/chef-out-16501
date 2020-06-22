@@ -33,6 +33,7 @@ export default EmailAuthReducer = (state = initialState, action) => {
                 }
             };
         case actions.EMAIL_AUTH_SIGNUP_SUCCESS:
+            console.log('Reducers:',action.user);
             return {
                 ...state,
                 user: action.user
