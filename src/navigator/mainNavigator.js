@@ -5,6 +5,7 @@ import {StyleSheet, Dimensions} from 'react-native'
 import SplashScreen from "../features/SplashScreen";
 import SideMenu from './sideMenu';
 //@BlueprintImportInsertion
+import BlankScreen45202768Navigator from '../features/BlankScreen45202768/navigator';
 import BlankScreen44202767Navigator from '../features/BlankScreen44202767/navigator';
 import SettingsBlueprintNavigator from '../features/SettingsBlueprint/navigator';
 import Maps27821Navigator from '../features/Maps27821/navigator';
@@ -40,6 +41,7 @@ const AppNavigator = {
         screen: WelcomeNavigator
     },
     //@BlueprintNavigationInsertion
+BlankScreen45202768: { screen: BlankScreen45202768Navigator },
 BlankScreen44202767: { screen: BlankScreen44202767Navigator },
 SettingsBlueprint: { screen: SettingsBlueprintNavigator },
     Maps27821: {
